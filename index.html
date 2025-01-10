@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 Sensor Data</title>
+    <script>
+        // Function to fetch data from Firebase Realtime Database
+        async function fetchData() {
+            // Firebase Realtime Database URL
+            const response = await fetch("https://test-a4d3b-default-rtdb.asia-southeast1.firebasedatabase.app/ESP32.json");
+            const data = await response.json();
+
+            // Display the fetched data
+            document.getElementById("temperature").innerText = "Temperature: " + data.Temperature + " °C";
+            document.getElementById("humidity").innerText = "Humidity: " + data.Humidity + " %";
+            document.getElementById("pressure").innerText = "Pressure: " + data.Pressure + " hPa";
+        }
+
+        // Fetch data every 5 seconds
+        setInterval(fetchData, 5000);
+    </script>
+</head>
+<body onload="fetchData()">
+    <h1>ESP32 Sensor Data</h1>
+    <p id="temperature">Temperature: Loading...</p>
+    <p id="humidity">Humidity: Loading...</p>
+    <p id="pressure">Pressure: Loading...</p>
+</body>
+</html>
